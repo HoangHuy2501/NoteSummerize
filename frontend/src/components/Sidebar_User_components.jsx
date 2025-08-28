@@ -51,7 +51,7 @@ function Sidebar_User_components() {
         <div className=' flex flex-col gap-4 text-center h-full '>
         <h2 className='text-cyan-200 font-semibold mt-5 '>AI NOTES SUMMARIZED</h2>
         <div>
-            <img src={getImage?getImage:"../../public/avatar.jpg"} alt="User Avatar" className="w-20 h-20 rounded-full mx-auto" />
+            <img src={getImage?getImage:"/avatar.jpg"} alt="User Avatar" className="w-20 h-20 rounded-full mx-auto" />
         </div>
             {sidebar.map((item)=>( 
                 <NavLink className={`w-full p-2 cursor-pointer  lg:text-2xl ${active===item.id?"text-cyan-400":"text-gray-300"} hover:text-cyan-400`}
