@@ -1,16 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import fmtDate from '../../utils/fmtDate';
-ListNote.propTypes = {
-    
-};
+import {Trash2} from 'lucide-react'
 
-function ListNote() {
+function ListNote({ search }) {
     const filtered = [
     { id: "n1", title: "Linear Algebra – Lecture 1", created_at: "2025-08-19T10:12:00Z" },
     { id: "n2", title: "Computer Networks – TCP/IP", created_at: "2025-08-18T15:22:00Z" },
     { id: "n3", title: "Biology – Photosynthesis", created_at: "2025-08-16T11:05:00Z" },
-  ]
+  ];
+  console.log("hihi",search);
+  
     const handleDelete = (id) => {
     if (confirm("Xoá note này?")) {
       // DELETE /api/notes/:id

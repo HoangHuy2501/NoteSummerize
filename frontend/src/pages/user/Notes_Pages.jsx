@@ -1,6 +1,7 @@
 import React, {  useState } from "react";
-import { FileText, Plus, Trash2, Search } from "lucide-react";
+import { FileText, Plus, Search } from "lucide-react";
 import ListNote from '../../components/Note_componment/ListNote';
+import { useDebounce } from "../../hooks/useDebounce";
 
 // async function fetchNotes() {
 //   // GET /api/notes
@@ -14,6 +15,7 @@ import ListNote from '../../components/Note_componment/ListNote';
 export default function NotesList() {
 //   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 3000);
 
 //   useEffect(() => {
 //     (async () => {
@@ -48,14 +50,14 @@ export default function NotesList() {
         <input
           type="text"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search notes..."
           className="pl-9 pr-3 py-2 border rounded-xl w-full bg-inherit text-cyan-300 placeholder-cyan-300  focus:(outline-none border-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.3)])  "
         />
       </div>
 
       {/* List */}
-      <ListNote />
+      <ListNote search={debouncedSearch} />
     </div>
   );
 }
