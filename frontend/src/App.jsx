@@ -6,7 +6,7 @@ import Register from "./pages/auth/Register";
 import Verify from "./pages/auth/Verify";
 // user
 import Layout_user from "./layout/Layout_user";
-import Dashboard from "./pages/user/dashboard";
+import Dashboard from "./pages/user/Dashboard";
 import NotesList from "./pages/user/Notes_Pages";
 
 const App = () => {
