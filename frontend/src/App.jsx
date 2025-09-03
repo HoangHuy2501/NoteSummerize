@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { publicRoutes, protectedRoutes } from "./routes/AppRouter.js";
 import ProtectedRoute from "./middleware/ProtectedRoute.jsx";
 import TokenValidator from "./components/Auth/TokenValidator";
@@ -8,7 +7,6 @@ import AuthGuard from "./middleware/AuthGuard";
 // import { Toaster } from 'sonner';
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "./queryClient.js";
-import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Layout_Auth from "./layout/Layout_Auth";
 import Login from "./pages/auth/Login";
