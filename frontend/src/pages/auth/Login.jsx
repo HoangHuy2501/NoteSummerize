@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { loginApi } from "../../services/auth";
 import * as Yup from "yup";
 import Loading from "../../components/Loading";
+import {getUserRole} from '../../utils/authUtils';
 Login.propTypes = {};
 
 function Login() {
+  const navigate = useNavigate();
   const [format, setFormat] = useState({
     email: "",
     password: "",
@@ -56,6 +58,12 @@ function Login() {
       const res = await loginApi(format.email, format.password);
       if (res.success === true) {
         toast.success(res.message);
+        const role=getUserRole();
+        if(role==="admin"){
+          navigate("/admin");
+        }else{
+          navigate("/");
+        }
       } else {
         toast.error(res.message);
       }

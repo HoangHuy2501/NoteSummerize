@@ -18,10 +18,18 @@ export const saveAuthToken = (token) => {
    localStorage.setItem(TOKEN_KEY, token);
    return token;
 };
+// lưu refreshtoken vào localStorage
+export const saveRefreshToken = (refreshToken) => {
+   localStorage.setItem('refreshToken', refreshToken);
+   return refreshToken;
+};
 
 // Lấy token đăng nhập từ localStorage
 export const getAuthToken = () => {
    return localStorage.getItem(TOKEN_KEY);
+};
+export const getRefreshToken = () => {
+   return localStorage.getItem('refreshToken');
 };
 
 // Kiểm tra người dùng đã đăng nhập hay chưa
@@ -95,6 +103,9 @@ export const getUserName = () => {
    return localStorage.getItem(USER_NAME_KEY);
 };
 
+export const getUserRole=()=>{
+   return localStorage.getItem(ROLE);
+};
 /**
  * Lấy email người dùng từ localStorage
  * @returns {string|null} Email người dùng hoặc null nếu không tồn tại

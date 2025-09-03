@@ -13,7 +13,7 @@ export default function usePageApi({
   page,
   size,
   search,
-  orderBy = "name",
+  orderBy = "created_at",
   orderType = 1,
   refreshKey,
   needTotalCount = true,
@@ -49,12 +49,13 @@ export default function usePageApi({
     }
 
     const params = {
-      Skip: (page - 1) * size,     // Bỏ qua bao nhiêu mục
-      Top: size,            // Lấy bao nhiêu mục
+      page: page,     // Bỏ qua bao nhiêu mục
+      size: size,            // Lấy bao nhiêu mục
       NeedTotalCount: needTotalCount, // Có cần tổng số mục không
       OrderBy: orderBy,    // Sắp xếp theo trường nào
       OrderType: orderType,        // Kiểu sắp xếp
       ...additionalParams,
+      // t: Date.now(), // ✅ chống cache
     };
     // Thêm tham số tìm kiếm nếu có
     if (search) {

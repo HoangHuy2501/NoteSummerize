@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FileText, Sparkles, Layers3, BookUser, Plus, ExternalLink, Play, BarChart3 } from "lucide-react"
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Legend,
 } from "recharts";
 import RecentNote from '../../components/dashboard_User/RecentNote';
 import RecentFlashcards from '../../components/dashboard_User/RecentFlashcards';
+import Create_Update_Note from '../../components/Note_componment/Create_update_Note';
 Dashboard.propTypes = {
 
 };
@@ -38,12 +39,13 @@ function Dashboard() {
       desc: "Total friends",
     },
   ]
-
+  const [create,setCreate]=useState(false);
 //   const [notes, setNotes] = useState([]);
    // Giả lập gọi API
 
   return (
     <div className='mb-5'>
+        {create && <Create_Update_Note onClose={() => setCreate(false)} />}
          <div className=" bg-black sticky top-0 w-full z-10 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
       {stats.map((stat, index) => (
         <div
@@ -59,7 +61,7 @@ function Dashboard() {
       ))}
     </div>
      {/* ===== Recent Notes ===== */}
-     <RecentNote />
+     <RecentNote onClose={() => setCreate(true)}/>
      {/* ===== Recent Flashcards ===== */}
     <RecentFlashcards />
     </div>
