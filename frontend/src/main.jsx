@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Toaster } from "sonner";
 import './index.css'
 import App from './App.jsx'
@@ -27,10 +27,10 @@ createRoot(document.getElementById('root')).render(
                       bg-[length:20px_20px] opacity-5 pointer-events-none"></div>
 
       {/* App */}
-      <BrowserRouter>
+      <HashRouter>
         <App />
         <Toaster position="top-right" richColors />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   </StrictMode>
 )
