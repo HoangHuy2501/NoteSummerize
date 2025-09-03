@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../services/auth';
 import { toast } from 'sonner';
 Sidebar_User_components.propTypes = {
@@ -43,6 +43,7 @@ function Sidebar_User_components() {
             path: "/auth/login"
         }
     ]
+    const navigator=useNavigate();
     const getImage=localStorage.getItem("image");
     //logout
     const handleLogout = async (id) => {
@@ -50,7 +51,7 @@ function Sidebar_User_components() {
             if(id!==10) return;
             const response = await logout();
             if (response.success===true) {
-                window.location.href = "/auth/login";
+                navigator("/auth/login");
                 localStorage.clear();
                 // toast.success("Đăng xuất thành công!");
                 
