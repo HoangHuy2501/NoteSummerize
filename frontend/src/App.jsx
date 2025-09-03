@@ -8,7 +8,6 @@ import AuthGuard from "./middleware/AuthGuard";
 // import { Toaster } from 'sonner';
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "./queryClient.js";
-=======
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Layout_Auth from "./layout/Layout_Auth";
