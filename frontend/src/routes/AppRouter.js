@@ -9,7 +9,7 @@ import Register from "../pages/auth/Register";
 import Verify from "../pages/auth/Verify";
 // layout user
 import Layout_user from "../layout/Layout_user";
-import Dashboard from "../pages/user/dashboard";
+import Dashboard from "../pages/user/Dashboard";
 import NotesList from "../pages/user/Notes_Pages";
 import ViewDetailsNote from '../components/Note_componment/ViewDetails';
 const publicRoutes=[
