@@ -5,6 +5,8 @@ import {
   saveAuthToken,
   removeAuthToken,
   saveUserDataFromToken,
+  saveRefreshToken,
+  getUserId
 } from "../utils/authUtils";
 import errorsString from '../utils/errorsString';
 export const loginApi=async (email, password) => {
@@ -19,6 +21,7 @@ export const loginApi=async (email, password) => {
             if(token){
                 try {
                     saveAuthToken(token);
+                    saveRefreshToken(response.data.refreshToken);
             const decodedToken = jwtDecode(token);
             saveUserDataFromToken(decodedToken, mail, avatar);
                 } catch {
@@ -105,5 +108,19 @@ export const verifyApi=async (token) => {
 };
 
 export const logout=async () => {
-    removeAuthToken();
+    const userID=getUserId();
+    try {
+        const response = await axiosInstance.post(`${API_ROUTES.Logout}/${userID}`);
+           await removeAuthToken();
+        return {
+            success: true,
+            message: errorsString(response.data.message),
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: errorsString(error.response.data.message) || 'Lỗi khi đăng xuất',
+        }
+    }
+
 };

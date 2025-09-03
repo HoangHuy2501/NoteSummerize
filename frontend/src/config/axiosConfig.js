@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 import { getAuthToken, removeAuthToken } from '../utils/authUtils';
-// import { refreshToken } from '../services/tokenRefresher';
+import { refreshToken } from '../services/tokenRefresher';
 
 // Lấy BASE_URL từ biến môi trường hoặc dùng URL dev
 const BASE_URL = import.meta.env.VITE_HTTP_API;
@@ -33,7 +33,7 @@ const handleSessionExpired = (message = 'Phiên đăng nhập đã hết hạn! 
    });
    // Redirect sau 1 giây để đảm bảo user thấy thông báo
    setTimeout(() => {
-      window.location.href = '/login';
+      window.location.href = '/auth/login';
    }, 1000);
 };
 
@@ -80,7 +80,7 @@ axiosInstance.interceptors.response.use(
       if (error.response?.status === 401 && !originalRequest._retry) {
 
          // Kiểm tra các trường hợp refresh token hết hạn
-         if (originalRequest.url === '/auth/refresh-token' ||
+         if (originalRequest.url === '/auth/check/refresh-token' ||
             errorResponse?.message?.toLowerCase().includes('refresh token expired') ||
             errorResponse?.message?.toLowerCase().includes('invalid refresh token')) {
 
@@ -106,29 +106,29 @@ axiosInstance.interceptors.response.use(
          originalRequest._retry = true;
          isRefreshingToken = true;
 
-         // try {
-         //    // Thử refresh token
-         //    const result = await refreshToken();
-         //    if (result.success) {
-         //       const { accessToken } = result;
-         //       // Cập nhật token cho request hiện tại
-         //       originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-         //       // Xử lý các request đang chờ
-         //       processQueue(null, accessToken);
-         //       return axiosInstance(originalRequest);
-         //    } else {
-         //       // Refresh token thất bại
-         //       console.log('❌ Refresh token thất bại:', result.message);
-         //       handleSessionExpired('Phiên đăng nhập không hợp lệ! Vui lòng đăng nhập lại.');
-         //       return Promise.reject(error);
-         //    }
-         // } catch (refreshError) {
-         //    console.error('❌ Lỗi khi refresh token:', refreshError);
-         //    handleSessionExpired('Không thể làm mới phiên đăng nhập! Vui lòng đăng nhập lại.');
-         //    return Promise.reject(refreshError);
-         // } finally {
-         //    isRefreshingToken = false;
-         // }
+         try {
+            // Thử refresh token
+            const result = await refreshToken();
+            if (result.success) {
+               const { accessToken } = result;
+               // Cập nhật token cho request hiện tại
+               originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+               // Xử lý các request đang chờ
+               processQueue(null, accessToken);
+               return axiosInstance(originalRequest);
+            } else {
+               // Refresh token thất bại
+               console.log('❌ Refresh token thất bại:', result.message);
+               handleSessionExpired('Phiên đăng nhập không hợp lệ! Vui lòng đăng nhập lại.');
+               return Promise.reject(error);
+            }
+         } catch (refreshError) {
+            console.error('❌ Lỗi khi refresh token:', refreshError);
+            handleSessionExpired('Không thể làm mới phiên đăng nhập! Vui lòng đăng nhập lại.');
+            return Promise.reject(refreshError);
+         } finally {
+            isRefreshingToken = false;
+         }
       }
 
       // Xử lý các lỗi khác

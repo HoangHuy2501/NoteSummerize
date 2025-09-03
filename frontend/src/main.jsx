@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from "sonner";
 import './index.css'
 import App from './App.jsx'
-
+// import Ant Design CSS
+import 'antd/dist/reset.css'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* Background chung */}
