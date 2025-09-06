@@ -56,10 +56,10 @@ function NoteDetail() {
     const fetchNoteDetail = async () => {
       try {
         const response = await getNote(id);
-        setNote(response.data.data?.[0]);
-      } catch {
+        setNote(response.data);
+      } catch (e) {
         // console.error("Error fetching note detail:", e);
-        toast.error("Error fetching note detail");
+        toast.error(e.response.message ||"Error fetching note detail");
       }
     };
 

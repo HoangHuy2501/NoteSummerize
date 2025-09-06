@@ -115,18 +115,20 @@ function Create_Note({ onClose, id }) {
         }
       } else {
         const response = await createNote(userID, formatdata);
-        if (response.success===true) {
-          onClose();
-          toast.success("Create note success");
+        // console.log("response", response);
+
+        if (response.success) {
+          toast.success(response.message || "Create note success");
           setTimeout(() => {
             window.location.reload();
           }, 3000);
+            onClose();
         }else{
-          toast.error("Create note failed");
+          toast.error(response.message || "Create note failed");
         }
       }
-    } catch {
-      // console.error(error);
+    } catch (error) {
+      console.error(error);
       toast.error("Có lỗi xảy ra!");
     } finally {
       setLoading(false);
@@ -135,11 +137,10 @@ function Create_Note({ onClose, id }) {
   // lấy dữ liệu từ id
   useEffect(() => {
     if (id) {
-      // Giả lập gọi API 3s
  const fetchNoteID = async () => {
       try {
         const response = await getNote(id);
-        setData(response.data.data?.[0]);
+        setData(response.data);
       } catch {
         // console.error("Error fetching note detail:", e);
         toast.error("Error fetching note detail");
@@ -148,6 +149,8 @@ function Create_Note({ onClose, id }) {
     fetchNoteID();
     }
   }, [id]);
+  // console.log('id',id);
+  
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"

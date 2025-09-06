@@ -6,14 +6,16 @@ import errorsString from '../utils/errorsString';
 export const createNote = async (userID, data) => {
     try {
         const response = await axiosInstance.post(`${API_ROUTES.CreateNote}/${userID}`, data);
+        // console.log("response create", response.data);
+
         return {
             success: true,
-            message: errorsString(response.data.message),
+            message: errorsString(response.data?.message),
         }
     } catch (error) {
         return {
             success: false,
-            message: errorsString(error.response.data.message) || 'Lỗi khi tạo ghi chú',
+            message: errorsString(error.response?.data?.message) || 'Lỗi khi tạo ghi chú',
         }
     }
 }
@@ -50,9 +52,10 @@ export const deleteNote=async (id)=>{
 export const getNote=async (id)=>{
     try {
         const response = await axiosInstance.get(`${API_ROUTES.GetNote}/${id}`);
+        console.log("response data", response.data.data);
         return {
             success: true,
-            data: response.data,
+            data: response.data.data?.[0],
         }
     } catch (error) {
         return {
