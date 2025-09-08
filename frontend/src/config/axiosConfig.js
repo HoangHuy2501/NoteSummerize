@@ -39,7 +39,7 @@ const handleSessionExpired = (message = 'Phiên đăng nhập đã hết hạn! 
 
 const axiosInstance = axios.create({
    baseURL: BASE_URL,
-   timeout: 20000,
+   timeout: 40000,
    headers: {
       'Content-Type': 'application/json',
    },

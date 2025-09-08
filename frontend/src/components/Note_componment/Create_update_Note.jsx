@@ -117,7 +117,7 @@ function Create_Note({ onClose, id }) {
         const response = await createNote(userID, formatdata);
         // console.log("response", response);
 
-        if (response.success) {
+        if (response.success===true) {
           toast.success(response.message || "Create note success");
           setTimeout(() => {
             window.location.reload();
@@ -129,7 +129,8 @@ function Create_Note({ onClose, id }) {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Có lỗi xảy ra!");
+      console.log("error",error.message);
+      toast.error(error.message || "Có lỗi xảy ra!");
     } finally {
       setLoading(false);
     }
