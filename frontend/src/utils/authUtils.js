@@ -19,10 +19,10 @@ export const saveAuthToken = (token) => {
    return token;
 };
 // lưu refreshtoken vào localStorage
-export const saveRefreshToken = (refreshToken) => {
-   localStorage.setItem('refreshToken', refreshToken);
-   return refreshToken;
-};
+// export const saveRefreshToken = (refreshToken) => {
+//    localStorage.setItem('refreshToken', refreshToken);
+//    return refreshToken;
+// };
 
 // Lấy token đăng nhập từ localStorage
 export const getAuthToken = () => {

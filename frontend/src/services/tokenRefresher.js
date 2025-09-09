@@ -5,7 +5,7 @@
  * - Đảm bảo phiên đăng nhập được duy trì liên tục
  */
 import axiosInstance from '../config/axiosConfig';
-import { getAuthToken, saveAuthToken, checkTokenValidity,getRefreshToken } from '../utils/authUtils';
+import { getAuthToken, saveAuthToken, checkTokenValidity, getUserId} from '../utils/authUtils';
 import { jwtDecode } from 'jwt-decode';
 import API_ROUTES from '../config/APIRoutes';
 
@@ -146,7 +146,8 @@ export const refreshToken = async () => {
       isRefreshing = true;
 
       // Lấy access token hiện tại
-      const currentToken = getRefreshToken();
+      const currentToken = getAuthToken(); 
+      const userid=getUserId();
       if (!currentToken) {
          isRefreshing = false;
          return { success: false, message: 'Không tìm thấy access token' };
@@ -154,7 +155,8 @@ export const refreshToken = async () => {
 
       // Gọi API làm mới token với access token hiện tại
       const response = await axiosInstance.post(API_ROUTES.refreshToken, {
-         token: currentToken
+         token: currentToken,
+         id:userid
       });
 
       // Xử lý kết quả

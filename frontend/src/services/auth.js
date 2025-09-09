@@ -5,7 +5,6 @@ import {
   saveAuthToken,
   removeAuthToken,
   saveUserDataFromToken,
-  saveRefreshToken,
   getUserId
 } from "../utils/authUtils";
 import errorsString from '../utils/errorsString';
@@ -21,7 +20,7 @@ export const loginApi=async (email, password) => {
             if(token){
                 try {
                     saveAuthToken(token);
-                    saveRefreshToken(response.data.refreshToken);
+                    // saveRefreshToken(response.data.refreshToken);
             const decodedToken = jwtDecode(token);
             saveUserDataFromToken(decodedToken, mail, avatar);
                 } catch {
