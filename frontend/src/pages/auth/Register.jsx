@@ -56,7 +56,10 @@ try {
     data.append("name",format.name);
     data.append("email",format.email);
     data.append("password",format.password);
-    data.append("image",format.image);
+    if (format.image) {
+  data.append("image", format.image);
+}
+    // data.append("image",format.image);
   setLoading(true);
       const res=await RegisterApi(data);
     if(res.success===true){
