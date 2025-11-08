@@ -12,6 +12,7 @@ function Create_Note({ onClose, id }) {
     title: "",
     content: "",
     summary: "",
+    numberQuestion: "",
     file: null,
   });
   const userID = getUserId();
@@ -28,6 +29,7 @@ function Create_Note({ onClose, id }) {
           .required("* Vui lòng nhập nội dung"),
       otherwise: (schema) => schema.notRequired(),
     }),
+    numberQuestion: Yup.number().min(10, "* Số câu hình thức phải lớn hơn 1").max(40, "* Số câu hình thức phải nhỏ hơn 40").required("* Vui lòng nhập số câu hình thức"),
     file: Yup.mixed().test("fileType", "* Chỉ chấp nhận file PDF", (value) => {
       return value && value.type === "application/pdf";
     }),
@@ -78,6 +80,7 @@ function Create_Note({ onClose, id }) {
       title: "",
       content: "",
       summary: "",
+      numberQuestion: "",
       file: null,
     });
     if (loading) return; // nếu đang loading thì ko đóng
@@ -91,13 +94,14 @@ function Create_Note({ onClose, id }) {
       toast.error("Bạn phải nhập Content hoặc chọn File PDF!");
       return;
     }
-    if (await !validateForm()) return;
+    if (!(await validateForm())) return;
     try {
       setLoading(true);
       const formatdata= new FormData();
       formatdata.append("title", data.title);
       formatdata.append("content", data.content);
       formatdata.append("summary", data.summary);
+      formatdata.append("numberQuestion", data.numberQuestion);
       if (data.file) {
         formatdata.append("file_url", data.file);
       }
@@ -238,7 +242,18 @@ function Create_Note({ onClose, id }) {
             animate-floating
             placeholder-cyan-50"
           />
-
+          <input type="number" name="numberQuestion" value={data.numberQuestion} onChange={handleChange} min={10} max={40}
+          placeholder="numberQuestion (10-40)"
+          className="p-2 w-2/3 max-w-xs rounded-xl text-cyan-300 placeholder-gray-300
+            bg-white/10 backdrop-blur-lg 
+            border-2 border-x-cyan-400 border-y-cyan-200
+            shadow-[0_0_20px_rgba(173,216,230,0.15)]
+            transition-all duration-500
+            focus:(border-cyan-300 shadow-[0_0_30px_rgba(173,216,230,0.6)])
+            hover:(border-cyan-500 shadow-[0_0_25px_rgba(173,216,230,0.4)])
+            animate-floating
+            placeholder-cyan-50"
+           />
           <input
             type="file"
             // accept="application/pdf"

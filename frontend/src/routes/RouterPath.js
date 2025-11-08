@@ -5,6 +5,7 @@ const routerPath={
     //user
     dashboard: "/dashboard",
     note: "/notes",
-    viewNote: "/notes/:id"
+    viewNote: "/notes/:id",
+    flashcard_multiple_choice: "/flashcards/multiple-choice/:id",
 }
 export default routerPath

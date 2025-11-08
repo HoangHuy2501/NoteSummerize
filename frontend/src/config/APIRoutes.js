@@ -17,6 +17,10 @@ const API_ROUTES = {
   GetRecentNote: "/notes/recent", // hàm lấy 5 note gần đây [GET] id người dùng
   // flashcards
   GetLatestFlashcard: "/flashcards/latest", // hàm lấy flashcard mới nhất [GET] id người dùng
+  GetListFlashcardByNote_id: "/flashcards/list", // hàm lấy danh sách flashcard theo note_id 
+  // InformationPoint
+  GetInformationPoint: "/InformationPoint/list", // hàm lấy danh sách điểm thông tin [GET] id note
+  checkAswer: "/InformationPoint/check-aswers", // hàm check đáp án [PUT] id người dùng
 };
 
 export default API_ROUTES;

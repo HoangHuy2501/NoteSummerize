@@ -6,12 +6,12 @@ import UpdateNote from "./Create_update_Note";
 import {getNote, deleteNote} from '../../services/crud_note'
 import { toast } from "sonner";
 import ConfirmDeleteModal from "./ComfirDelete"
+import Back from "../Back";
 
 const { Text } = Typography;
 
 function NoteDetail() {
     const navigate = useNavigate();
-    const [flashcard, setFlashcard] = useState(false);
     const [update,setUpdate]=useState(false);
     const [note, setNote] = useState({});
     const [openDelete, setOpenDelete] = useState(false);
@@ -26,14 +26,6 @@ function NoteDetail() {
   //   createdAt: "2025-08-29T10:00:00Z",
   // };
   const {id}=useParams();
-// recent back
-  const handleBack = () => {
-    navigate(-1);
-  };
-  // mở flashcard
-  const handleFlashcard = () => {
-    setFlashcard(true);
-  };
   // xóa note
   const handleDelete = async(id) => {
     try {
@@ -67,6 +59,10 @@ function NoteDetail() {
   }, [id]);
   // console.log("note",note.id);
   
+  // mở qua /flashcards/multiple-choice
+  const handleFlashcardMultipleChoice = (id) => {
+    navigate(`/flashcards/multiple-choice/${id}`);
+  };
   return (
     <div className="space-y-6">
         {update && <UpdateNote onClose={()=>setUpdate(false)} id={id} />}
@@ -76,9 +72,7 @@ function NoteDetail() {
         onCancel={() => setOpenDelete(false)}
       />}
             <div className="rounded-xl overflow-hidden mt-10 flex justify-center">
-      <Button type="primary" className="mt-4 bg-inherit border-cyan-200 text-cyan-200 " onClick={handleBack}>
-        Back
-      </Button>
+     <Back/>
       <div className="w-10/12 ">
         <h2
           className="text-3xl font-bold text-center mb-6 
@@ -137,11 +131,11 @@ function NoteDetail() {
 
           {/* Footer */}
           <div className="flex justify-end mt-4">
-                        <Tag color="green" className="px-3 py-1 rounded-full">
+            <Tag color="green" className="px-3 py-1 rounded-full cursor-default">
               {fmtDate(note.created_at)}
             </Tag>
              <Space>
-              <Button type="primary" onClick={handleUpdate}>
+              <Button type="primary" style={{backgroundColor:"#1677ff",color: 'white', opacity: 1,cursor: 'not-allowed'}} disabled onClick={handleUpdate}>
                 ✏️ Update
               </Button>
               <Button danger onClick={() => setOpenDelete(true)} >
@@ -150,17 +144,9 @@ function NoteDetail() {
             </Space>
           </div>
         </Card>
-        <div>
-          {flashcard && (
-          <div>
-            <h3>Flashcard Content</h3>
-            <p>{note.content}</p>
-          </div>
-        )}
-        </div>
       </div>
 
-      <Button type="primary" className="mt-4 bg-inherit border-cyan-200 text-cyan-200 " onClick={handleFlashcard}>
+      <Button type="primary" className="mt-4 bg-inherit border-cyan-200 text-cyan-200 " onClick={() => handleFlashcardMultipleChoice(note.id)}>
         Flashcards
       </Button>
         

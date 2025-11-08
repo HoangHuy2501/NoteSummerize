@@ -12,6 +12,7 @@ import Layout_user from "../layout/Layout_user";
 import Dashboard from "../pages/user/Dashboard";
 import NotesList from "../pages/user/Notes_Pages";
 import ViewDetailsNote from '../components/Note_componment/ViewDetails';
+import Flashcard_Pages from "../pages/user/Flashcard_Pages";
 const publicRoutes=[
       {
     path: "/auth/login",component: Login,
@@ -39,6 +40,7 @@ const protectedRoutes = {
             {path: RouterPath.dashboard, component: Dashboard},
             {path: RouterPath.note, component: NotesList},
             {path: RouterPath.viewNote, component: ViewDetailsNote},
+            {path: RouterPath.flashcard_multiple_choice, component: Flashcard_Pages},
         ]
     }
 };

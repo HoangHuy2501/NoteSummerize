@@ -20,3 +20,14 @@ export const getLatestFlashcard = async (id) => {
         };
   }
 };
+export const GetListFlashcardByNote_id=async (id) => {
+  try {
+    const response = await axiosInstance.get(`${API_ROUTES.GetListFlashcardByNote_id}/${id}`);
+    return response.data;
+  } catch (error) {
+    return {
+            success: false,
+            message: errorsString(error.response.data.message) || 'Lỗi khi lấy danh sách flashcard',
+        };
+  }
+}

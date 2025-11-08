@@ -115,7 +115,7 @@ export const getUserRole = () => {
     const decodedToken = jwtDecode(token);
     return decodedToken[
       "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-    ];
+    ] || decodedToken.role;
   } catch (error) {
     console.error("Get user role error:", error);
     return null;
